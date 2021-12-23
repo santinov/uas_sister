@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  app:
+    image: sant1/santi_uas
+    container_name: web-server
+    depends_on:
+      - db
+    volumes:
+      - ./php/src:/var/www/html/
+    ports:
+      - 8000:80
+
+  db:
+        container_name: db
+        image: mysql
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: noV11+24
+            MYSQL_DATABASE: ajc
+            MYSQL_USER: admin
+            MYSQL_PASSWORD: noV11+24
+        ports:
+          - 3306:3306
+  phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        ports:
+            - 3060:80
+        restart: always
+        environment:
+            PMA_HOST: db
+        depends_on:
+            - db
